@@ -37,6 +37,7 @@ input{
     height: 52px;
     border-radius: 8px;
     margin-bottom: 16px;
+    padding-left: 10px;
     &::placeholder{
         font-family: 'Roboto', sans-serif;
         font-size: 14px;

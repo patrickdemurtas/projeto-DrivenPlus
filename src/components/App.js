@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TelaLogin from "./TelaLogin";
 import TelaCadastro from "./TelaCadastro";
+import TelaPlanos from "./TelaPlanos";
 
 
 
@@ -8,7 +9,7 @@ function App() {
   return (
     <Container>
 
-    <TelaLogin />
+    <TelaPlanos />
 
     </Container>
     
