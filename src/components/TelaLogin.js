@@ -38,6 +38,7 @@ export default function TelaLogin() {
                     <button type="submit"><p>ENTRAR</p></button>
 
                 </FormsLogin>
+                
                 <LinkCadastro><p>Não possui uma conta? Cadastre-se</p></LinkCadastro>
 
 

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TelaLogin from "./TelaLogin";
+import TelaCadastro from "./TelaCadastro";
 
 
 
