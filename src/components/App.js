@@ -2,6 +2,7 @@ import styled from "styled-components";
 import TelaLogin from "./TelaLogin";
 import TelaCadastro from "./TelaCadastro";
 import TelaPlanos from "./TelaPlanos";
+import TelaAssinatura from "./TelaAssinatura";
 
 
 
@@ -9,7 +10,7 @@ function App() {
   return (
     <Container>
 
-    <TelaPlanos />
+    <TelaAssinatura />
 
     </Container>
     
