@@ -30,6 +30,7 @@ export default function TelaAssinatura() {
             <ConteudoBeneficios>
                 <p>1. Brindes exclusivos</p>
                 <p>2. Materiais bônus de web</p>
+               
             </ConteudoBeneficios>
 
             <TituloPreco>
@@ -117,7 +118,7 @@ p{
 const TituloPreco = styled.div`
 display: flex;
 margin-left: 44px;
-margin-top: 30px;
+margin-top: 10px;
 p{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
