@@ -21,7 +21,7 @@ export default function TelaLogin() {
     
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { setToken } = useContext(AuthContext)
+    const { token, setToken } = useContext(AuthContext)
     const { user, setUser } = useContext(UserContext) 
 
     function fazerLogin (e) {
