@@ -5,8 +5,11 @@ import v from "../assets/v.png"
 import e from "../assets/e.png"
 import n from "../assets/n.png"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
-
+import { Link, useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
+import axios from "axios"
+import AuthContext from "../contexts/AuthContext"
+import UserContext from "../contexts/UserContext"
 
 
 
@@ -14,6 +17,35 @@ import { Link } from "react-router-dom"
 export default function TelaLogin() {
 
     const driven = [d, r, i, v, e, n]
+    const Navigate = useNavigate()
+    
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const { setToken } = useContext(AuthContext)
+    const { user, setUser } = useContext(UserContext) 
+
+    function fazerLogin (e) {
+     e.preventDefault()
+
+     const corpo = {email, password}
+
+     const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/login', corpo)
+     promise.then((res) => {
+        setToken(res.data.token)
+        setUser({id: res.data.id, name: res.data.name, cpf: res.data.cpf, email: res.data.email, password: res.data.password, membership: res.data.membership })
+        if (res.data.membership === null){
+            Navigate('/subscriptions') 
+        } else if (res.data.membership !== null){
+            Navigate('/home')
+        }
+        console.log(user)
+     })
+        promise.catch((erro) => {
+            alert(erro.response.data.message)
+            Navigate('/sign-up')
+        })
+    }
+
 
     return (
 
@@ -31,10 +63,10 @@ export default function TelaLogin() {
 
             <ConteudoLogin>
 
-                <FormsLogin>
+                <FormsLogin onSubmit={fazerLogin}>
 
-                    <input placeholder="E-mail" required />
-                    <input placeholder="Senha" required />
+                    <input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} required />
+                    <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} required />
                     <button type="submit"><p>ENTRAR</p></button>
 
                 </FormsLogin>

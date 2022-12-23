@@ -1,16 +1,40 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import axios from "axios"
 
 export default function TelaCadastro() {
+
+    const [name, setName] = useState('')
+    const [cpf, setCpf] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const Navigate = useNavigate()
+    
+    function fazerCadastro(e){
+        e.preventDefault()
+
+        const corpo = {name, cpf, email, password}
+
+        const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/sign-up', corpo)
+           promise.then((res) => {
+            alert('Cadastro feito com sucesso!')
+            Navigate('/')
+           })
+           promise.catch((erro) => alert(erro.response.data.message))
+    }
+
+
     return (
         <>
             <ConteudoCadastro>
 
-                <FormsCadastro>
-                    <input placeholder="Nome" required />
-                    <input placeholder="CPF" required />
-                    <input placeholder="E-mail" required />
-                    <input placeholder="Senha" required />
+                <FormsCadastro onSubmit={fazerCadastro}>
+                    <input placeholder="Nome" value={name} onChange={e => setName(e.target.value)} required />
+                    <input placeholder="CPF" value={cpf} onChange={e => setCpf(e.target.value)} required />
+                    <input placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} required />
+                    <input placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} required />
                     <button type="submit"><p>CADASTRAR</p></button>
                 </FormsCadastro>
 

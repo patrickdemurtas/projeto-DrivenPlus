@@ -5,14 +5,23 @@ import TelaCadastro from "./TelaCadastro";
 import TelaPlanos from "./TelaPlanos";
 import TelaAssinatura from "./TelaAssinatura";
 import TelaHome from "./TelaHome";
+import { useState } from "react";
+import AuthContext from "../contexts/AuthContext";
+import UserContext from "../contexts/UserContext";
 
 
 
 
 function App() {
+   
+  const [token, setToken] = useState("")
+  const [user, setUser] = useState({})
+
   return (
     <Container>
 
+       <AuthContext.Provider value={{token, setToken}} >
+        <UserContext.Provider value={{user, setUser}}>
       <BrowserRouter>
 
         <Routes>
@@ -24,6 +33,8 @@ function App() {
         </Routes>
 
       </BrowserRouter>
+      </UserContext.Provider>
+      </AuthContext.Provider>
 
     </Container >
 
