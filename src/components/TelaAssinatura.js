@@ -5,6 +5,7 @@ import logopremiumcadastro from "../assets/logopremiumcadastro.png";
 import beneficios from "../assets/beneficios.png";
 import preco from "../assets/preco.png";
 import iconevoltar from "../assets/iconevoltar.png"
+import { Link } from "react-router-dom";
 
 export default function TelaAssinatura() {
 
@@ -13,8 +14,9 @@ export default function TelaAssinatura() {
 
     return (
         <>
-
-        <IconeVoltar><img src={icones[2]} /></IconeVoltar>
+            <Link to="/subscriptions">
+                <IconeVoltar><img src={icones[2]} /></IconeVoltar>
+            </Link>
 
             <LogoAssinatura>
                 <img src={logos[0]} />
@@ -31,7 +33,7 @@ export default function TelaAssinatura() {
             <ConteudoBeneficios>
                 <p>1. Brindes exclusivos</p>
                 <p>2. Materiais bônus de web</p>
-               
+
             </ConteudoBeneficios>
 
             <TituloPreco>
@@ -39,20 +41,20 @@ export default function TelaAssinatura() {
                 <p>Preço:</p>
             </TituloPreco>
             <ConteudoPreco>
-              <p>R$ 39,99 cobrados mensalmente</p>
+                <p>R$ 39,99 cobrados mensalmente</p>
             </ConteudoPreco>
 
             <FormsAssinatura>
-            <input placeholder="Nome" required />
-            <input placeholder="Dígitos do cartão" required />
-            
-             <InputMenor>
-             <input placeholder="Código de segurança" required />
-             <input placeholder="validade" required />
-             </InputMenor>
+                <input placeholder="Nome" required />
+                <input placeholder="Dígitos do cartão" required />
+
+                <InputMenor>
+                    <input placeholder="Código de segurança" required />
+                    <input placeholder="validade" required />
+                </InputMenor>
 
 
-            <button type="submit"><p>ASSINAR</p></button>
+                <button type="submit"><p>ASSINAR</p></button>
             </FormsAssinatura>
 
         </>

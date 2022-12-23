@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function TelaCadastro() {
     return (
@@ -13,7 +14,10 @@ export default function TelaCadastro() {
                     <button type="submit"><p>CADASTRAR</p></button>
                 </FormsCadastro>
 
-                <LinkEntrar><p>Já possui uma conta? Entre</p></LinkEntrar>
+
+                <Link to="/">
+                    <LinkEntrar><p>Já possui uma conta? Entre</p></LinkEntrar>
+                </Link>
 
             </ConteudoCadastro>
 
