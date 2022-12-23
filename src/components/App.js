@@ -3,6 +3,7 @@ import TelaLogin from "./TelaLogin";
 import TelaCadastro from "./TelaCadastro";
 import TelaPlanos from "./TelaPlanos";
 import TelaAssinatura from "./TelaAssinatura";
+import TelaHome from "./TelaHome";
 
 
 
@@ -10,7 +11,7 @@ function App() {
   return (
     <Container>
 
-    <TelaAssinatura />
+    <TelaLogin />
 
     </Container>
     

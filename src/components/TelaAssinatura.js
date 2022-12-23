@@ -27,6 +27,7 @@ export default function TelaAssinatura() {
                 <img src={icones[0]} />
                 <p>Benefícios:</p>
             </TituloBeneficios>
+
             <ConteudoBeneficios>
                 <p>1. Brindes exclusivos</p>
                 <p>2. Materiais bônus de web</p>
@@ -153,6 +154,7 @@ input{
     border-radius: 8px;
     margin-bottom: 16px;
     padding-left: 10px;
+    border: 1px solid black;
     &::placeholder{
         font-family: 'Roboto', sans-serif;
         font-size: 14px;
@@ -166,6 +168,7 @@ height: 52px;
 background-color: #FF4791;
 border-radius: 8px;
 margin-top: 10px;
+border: 1px solid black;
 }
 p{
   font-family: 'Roboto', sans-serif;
