@@ -2,10 +2,29 @@ import styled from "styled-components";
 import logopluscadastro from "../assets/logopluscadastro.png";
 import logogoldcadastro from "../assets/logogoldcadastro.png";
 import logopremiumcadastro from "../assets/logopremiumcadastro.png";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
+import axios from "axios";
 
 export default function TelaPlanos() {
 
     const logos = [logopluscadastro, logogoldcadastro, logopremiumcadastro];
+
+    const [planosPrev, setPlanosPrev] = useState([])
+
+    const { token } = useContext(AuthContext)
+
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const promise = axios.get('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships', config)
+        promise.then((res) => setPlanosPrev(res.data))
+        promise.catch((erro) => console.log(erro.response.data))
+    }, [])
 
     return (
         <>
@@ -13,28 +32,12 @@ export default function TelaPlanos() {
 
             <ConteudoPlanos>
 
+            {planosPrev.map((p) => (
                 <ButtonCadastro>
-                    <img src={logos[0]} />
-                    <h1>+</h1>
-                    <h2>R$ 39,99</h2>
-
+                    <img src={p.image} />
+                    <h2>R$ {p.price}</h2>
                 </ButtonCadastro>
-
-
-                <ButtonCadastro>
-                    <img src={logos[1]} />
-                    <h1>+</h1>
-                    <h2>R$ 69,99</h2>
-
-                </ButtonCadastro>
-
-
-                <ButtonCadastro>
-                    <img src={logos[2]} />
-                    <h1>+</h1>
-                    <h2>R$ 99,99</h2>
-
-                </ButtonCadastro>
+            ))}
 
                 
             </ConteudoPlanos>

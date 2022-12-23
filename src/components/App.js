@@ -8,32 +8,38 @@ import TelaHome from "./TelaHome";
 import { useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import UserContext from "../contexts/UserContext";
+import PlanoContext from "../contexts/PlanoContext";
 
 
 
 
 function App() {
-   
+
   const [token, setToken] = useState("")
   const [user, setUser] = useState({})
+  const [infoPlano, setInfoPlano] = useState({})
 
   return (
     <Container>
 
-       <AuthContext.Provider value={{token, setToken}} >
-        <UserContext.Provider value={{user, setUser}}>
-      <BrowserRouter>
+      <AuthContext.Provider value={{ token, setToken }} >
+        <UserContext.Provider value={{ user, setUser }}>
+          <PlanoContext.Provider value={{ infoPlano, setInfoPlano }}>
 
-        <Routes>
-          <Route path="/" element={<TelaLogin />} />
-          <Route path="/sign-up" element={<TelaCadastro />} />
-          <Route path="/subscriptions" element={<TelaPlanos />} />
-          <Route path="/subscriptions/:idPlano" element={<TelaAssinatura />} />
-          <Route path="/home" element={<TelaHome />} />
-        </Routes>
+            <BrowserRouter>
 
-      </BrowserRouter>
-      </UserContext.Provider>
+              <Routes>
+                <Route path="/" element={<TelaLogin />} />
+                <Route path="/sign-up" element={<TelaCadastro />} />
+                <Route path="/subscriptions" element={<TelaPlanos />} />
+                <Route path="/subscriptions/:idPlano" element={<TelaAssinatura />} />
+                <Route path="/home" element={<TelaHome />} />
+              </Routes>
+
+            </BrowserRouter>
+            
+          </PlanoContext.Provider>
+        </UserContext.Provider>
       </AuthContext.Provider>
 
     </Container >
