@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TelaLogin from "./TelaLogin";
 import TelaCadastro from "./TelaCadastro";
 import TelaPlanos from "./TelaPlanos";
@@ -7,14 +8,25 @@ import TelaHome from "./TelaHome";
 
 
 
+
 function App() {
   return (
     <Container>
 
-    <TelaLogin />
+      <BrowserRouter>
 
-    </Container>
-    
+        <Routes>
+          <Route path="/" element={<TelaLogin />} />
+          <Route path="/sign-up" element={<TelaCadastro />} />
+          <Route path="/subscriptions" element={<TelaPlanos />} />
+          <Route path="/subscriptions/:idPlano" element={<TelaAssinatura />} />
+          <Route path="/home" element={<TelaHome />} />
+        </Routes>
+
+      </BrowserRouter>
+
+    </Container >
+
   );
 }
 
