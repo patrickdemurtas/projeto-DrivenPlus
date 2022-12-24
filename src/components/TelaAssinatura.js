@@ -12,13 +12,13 @@ import axios from "axios";
 import PlanoContext from "../contexts/PlanoContext";
 import UserContext from "../contexts/UserContext";
 
-export default function TelaAssinatura() {
+export default function TelaAssinatura({nomeCartao, setNomeCartao}) {
 
     const logos = [logopluscadastro, logogoldcadastro, logopremiumcadastro];
     const icones = [beneficios, preco, iconevoltar];
 
     const [planoDesc, setPlanoDesc] = useState([])
-    const [nomeCartao, setNomeCartao] = useState('')
+    
     const [numeroCartao, setNumeroCartao] = useState('')
     const [codCartao, setCodCartao] = useState()
     const [valCartao, setValCartao] = useState('')

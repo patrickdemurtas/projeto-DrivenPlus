@@ -6,25 +6,58 @@ import iconeperson from "../assets/iconeperson.png"
 import { useContext } from "react";
 import PlanoContext from "../contexts/PlanoContext";
 import UserContext from "../contexts/UserContext";
+import AuthContext from "../contexts/AuthContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
-export default function TelaHome() {
+export default function TelaHome({ nomeCartao, setNomeCartao }) {
 
     const icones = [logohomeplus, logohomegold, logohomepremium, iconeperson];
 
-    const {infoPlano, setInfoPlano} = useContext(PlanoContext)
-    const {user, setUser} = useContext(UserContext)
+    const { infoPlano, setInfoPlano } = useContext(PlanoContext)
+    const { user, setUser } = useContext(UserContext)
+    const { token, setToken } = useContext(AuthContext)
+    const Navigate = useNavigate()
 
-    function teste (){
-        
+    function teste() {
+
         console.log(user)
     }
 
-    if (user.length === 0){
+    if (user.length === 0) {
         return (
             <div>Carregando...</div>
         )
     }
+
+    function carregarNome() {
+        if (nomeCartao === '') {
+            return (
+                <TituloHome><p>Olá, {user.name}</p></TituloHome>
+            )
+        } else if (nomeCartao !== '') {
+            return (
+                <TituloHome><p>Olá, {nomeCartao}</p></TituloHome>
+            )
+        }
+    }
+     
+     function cancelarPlano() {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        const promise = axios.delete('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', config)
+         promise.then((res) => Navigate('/'))
+
+     }
+
+     function alterarPlano() {
+        Navigate('/subscriptions')
+     }
 
     return (
         <>
@@ -32,23 +65,23 @@ export default function TelaHome() {
 
                 <LogoHome>
                     <img src={user.membership.image} />
-                   
+
                 </LogoHome>
                 <img src={icones[3]} />
 
             </HeaderHome>
 
-            <TituloHome><p>Olá, {user.name}</p></TituloHome>
+            {carregarNome()}
 
             <ButtonBeneficiosContainer>
-             {user.membership.perks.map((ump) => (
-                <ButtonBeneficios><p>{ump.title}</p></ButtonBeneficios>
-             ))}
+                {user.membership.perks.map((ump) => (
+                    <ButtonBeneficios><p>{ump.title}</p></ButtonBeneficios>
+                ))}
             </ButtonBeneficiosContainer>
 
             <ButtonPlanosContainer>
-              <ButtonMudar onClick={teste}><p>Mudar plano</p></ButtonMudar>
-              <ButtonCancelar><p>Cancelar plano</p></ButtonCancelar>
+                <ButtonMudar onClick={alterarPlano}><p>Mudar plano</p></ButtonMudar>
+                <ButtonCancelar onClick={cancelarPlano}><p>Cancelar plano</p></ButtonCancelar>
             </ButtonPlanosContainer>
         </>
 
