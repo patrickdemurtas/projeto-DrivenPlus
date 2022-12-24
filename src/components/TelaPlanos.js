@@ -5,6 +5,7 @@ import logopremiumcadastro from "../assets/logopremiumcadastro.png";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function TelaPlanos() {
 
@@ -22,9 +23,13 @@ export default function TelaPlanos() {
             }
         }
         const promise = axios.get('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships', config)
-        promise.then((res) => setPlanosPrev(res.data))
+        promise.then((res) => {
+            setPlanosPrev(res.data)
+        })
         promise.catch((erro) => console.log(erro.response.data))
     }, [])
+
+  
 
     return (
         <>
@@ -33,10 +38,12 @@ export default function TelaPlanos() {
             <ConteudoPlanos>
 
             {planosPrev.map((p) => (
+                <Link to={`/subscriptions/${p.id}`} style={{textDecoration: 'none'}}>
                 <ButtonCadastro>
                     <img src={p.image} />
                     <h2>R$ {p.price}</h2>
                 </ButtonCadastro>
+                </Link>
             ))}
 
                 

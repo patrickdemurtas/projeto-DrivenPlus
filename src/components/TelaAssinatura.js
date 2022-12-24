@@ -5,13 +5,72 @@ import logopremiumcadastro from "../assets/logopremiumcadastro.png";
 import beneficios from "../assets/beneficios.png";
 import preco from "../assets/preco.png";
 import iconevoltar from "../assets/iconevoltar.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
+import axios from "axios";
+import PlanoContext from "../contexts/PlanoContext";
+import UserContext from "../contexts/UserContext";
 
 export default function TelaAssinatura() {
 
     const logos = [logopluscadastro, logogoldcadastro, logopremiumcadastro];
     const icones = [beneficios, preco, iconevoltar];
 
+    const [planoDesc, setPlanoDesc] = useState([])
+    const [nomeCartao, setNomeCartao] = useState('')
+    const [numeroCartao, setNumeroCartao] = useState('')
+    const [codCartao, setCodCartao] = useState()
+    const [valCartao, setValCartao] = useState('')
+
+    const {infoPlano, setInfoPlano} = useContext(PlanoContext) 
+    const {user, setUser} = useContext(UserContext)
+
+    const Navigate = useNavigate()
+    const { idPlano } = useParams();
+    const { token } = useContext(AuthContext)
+
+    console.log(idPlano)
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${idPlano}`, config)
+        promise.then((res) => {
+            setPlanoDesc(res.data)
+        })
+        promise.catch((erro) => alert(erro.response.data.message))
+    }, [])
+
+    if (planoDesc.length === 0) {
+        return (
+            <div>Carregando...</div>
+        )
+    }
+
+    function assinarPlano(e) {
+        e.preventDefault()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        const corpo = { membershipId: idPlano, cardName: nomeCartao, cardNumber: numeroCartao, securityNumber: codCartao, expirationDate: valCartao }
+
+        const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', corpo, config)
+        promise.then((res) => {
+            setUser(res.data)
+            alert('Assinatura feita com sucesso')
+            Navigate('/home')
+        })
+        promise.catch((erro) => alert(erro.response.data.message))
+    }
+     
     return (
         <>
             <Link to="/subscriptions">
@@ -19,10 +78,10 @@ export default function TelaAssinatura() {
             </Link>
 
             <LogoAssinatura>
-                <img src={logos[0]} />
-                <h1>+</h1>
+                <img src={planoDesc.image} />
+
             </LogoAssinatura>
-            <TituloAssinatura><p>Driven Plus</p></TituloAssinatura>
+            <TituloAssinatura><p>{planoDesc.name}</p></TituloAssinatura>
 
 
             <TituloBeneficios>
@@ -30,27 +89,28 @@ export default function TelaAssinatura() {
                 <p>Benefícios:</p>
             </TituloBeneficios>
 
-            <ConteudoBeneficios>
-                <p>1. Brindes exclusivos</p>
-                <p>2. Materiais bônus de web</p>
+            {planoDesc.perks.map((pp) => (
+                <ConteudoBeneficios>
+                    <p>- {pp.title}</p>
+                </ConteudoBeneficios>
+            ))}
 
-            </ConteudoBeneficios>
 
             <TituloPreco>
                 <img src={icones[1]} />
                 <p>Preço:</p>
             </TituloPreco>
             <ConteudoPreco>
-                <p>R$ 39,99 cobrados mensalmente</p>
+                <p>R$ {planoDesc.price} cobrados mensalmente</p>
             </ConteudoPreco>
 
-            <FormsAssinatura>
-                <input placeholder="Nome" required />
-                <input placeholder="Dígitos do cartão" required />
+            <FormsAssinatura onSubmit={assinarPlano}>
+                <input placeholder="Nome impresso no cartão" value={nomeCartao} onChange={e => setNomeCartao(e.target.value)} required />
+                <input placeholder="Dígitos do cartão" value={numeroCartao} onChange={e => setNumeroCartao(e.target.value)} required />
 
                 <InputMenor>
-                    <input placeholder="Código de segurança" required />
-                    <input placeholder="validade" required />
+                    <input type="number" placeholder="Código de segurança" value={codCartao} onChange={e => setCodCartao(e.target.value)} required />
+                    <input placeholder="validade" value={valCartao} onChange={e => setValCartao(e.target.value)} required />
                 </InputMenor>
 
 

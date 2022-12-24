@@ -3,35 +3,51 @@ import logohomeplus from "../assets/logohomeplus.png";
 import logohomegold from "../assets/logohomegold.png";
 import logohomepremium from "../assets/logohomepremium.png";
 import iconeperson from "../assets/iconeperson.png"
+import { useContext } from "react";
+import PlanoContext from "../contexts/PlanoContext";
+import UserContext from "../contexts/UserContext";
 
 
 export default function TelaHome() {
 
     const icones = [logohomeplus, logohomegold, logohomepremium, iconeperson];
 
+    const {infoPlano, setInfoPlano} = useContext(PlanoContext)
+    const {user, setUser} = useContext(UserContext)
+
+    function teste (){
+        
+        console.log(user)
+    }
+
+    if (user.length === 0){
+        return (
+            <div>Carregando...</div>
+        )
+    }
+
     return (
         <>
             <HeaderHome>
 
                 <LogoHome>
-                    <img src={icones[2]} />
-                    <p>+</p>
+                    <img src={user.membership.image} />
+                   
                 </LogoHome>
                 <img src={icones[3]} />
 
             </HeaderHome>
 
-            <TituloHome><p>Olá, Fulano</p></TituloHome>
+            <TituloHome><p>Olá, {user.name}</p></TituloHome>
 
             <ButtonBeneficiosContainer>
-                <ButtonBeneficios><p>Solicitar brindes</p></ButtonBeneficios>
-                <ButtonBeneficios><p>Materiais bônus da web</p></ButtonBeneficios>
-                <ButtonBeneficios><p>Aulas bônus de tech</p></ButtonBeneficios>
-                <ButtonBeneficios><p>Mentorias personalizadas</p></ButtonBeneficios>
+             {user.membership.perks.map((ump) => (
+                <ButtonBeneficios><p>{ump.title}</p></ButtonBeneficios>
+             ))}
             </ButtonBeneficiosContainer>
 
             <ButtonPlanosContainer>
-              <ButtonMudar><p>Mudar plano</p></ButtonMudar>
+              <ButtonMudar onClick={teste}><p>Mudar plano</p></ButtonMudar>
               <ButtonCancelar><p>Cancelar plano</p></ButtonCancelar>
             </ButtonPlanosContainer>
         </>
