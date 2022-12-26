@@ -141,6 +141,9 @@ background-color: #FF4791;
 border-radius: 8px;
 margin-bottom: 8px;
 border: 1px solid black;
+&:hover{
+    cursor: pointer;
+}
 p{
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -165,6 +168,9 @@ background-color: #FF4791;
 border-radius: 8px;
 margin-bottom: 8px;
 border: 1px solid black;
+&:hover{
+    cursor: pointer;
+}
 p{
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -181,6 +187,9 @@ background-color: #FF4747;
 border-radius: 8px;
 margin-bottom: 8px;
 border: 1px solid black;
+&:hover{
+cursor: pointer;
+}
 p{
   font-family: 'Roboto', sans-serif;
   font-size: 14px;

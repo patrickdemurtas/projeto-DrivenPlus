@@ -160,6 +160,9 @@ background-color: #FF4791;
 border-radius: 8px;
 margin-top: 10px;
 border: 1px solid black;
+&:hover{
+cursor: pointer;
+}
 }
 p{
   font-family: 'Roboto', sans-serif;

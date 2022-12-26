@@ -81,6 +81,9 @@ border-radius: 12px;
 margin-bottom: 10px;
 display:flex;
 align-items: center;
+&:hover{
+cursor: pointer;
+}
 h1{
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
