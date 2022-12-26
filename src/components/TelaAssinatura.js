@@ -1,7 +1,4 @@
 import styled from "styled-components"
-import logopluscadastro from "../assets/logopluscadastro.png";
-import logogoldcadastro from "../assets/logogoldcadastro.png";
-import logopremiumcadastro from "../assets/logopremiumcadastro.png";
 import beneficios from "../assets/beneficios.png";
 import preco from "../assets/preco.png";
 import iconevoltar from "../assets/iconevoltar.png"
@@ -9,12 +6,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
-import PlanoContext from "../contexts/PlanoContext";
 import UserContext from "../contexts/UserContext";
 
 export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
 
-    const logos = [logopluscadastro, logogoldcadastro, logopremiumcadastro];
+    
     const icones = [beneficios, preco, iconevoltar];
 
     const [planoDesc, setPlanoDesc] = useState([])
@@ -23,7 +19,7 @@ export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
     const [codCartao, setCodCartao] = useState()
     const [valCartao, setValCartao] = useState('')
 
-    const { infoPlano, setInfoPlano } = useContext(PlanoContext)
+   
     const { user, setUser } = useContext(UserContext)
 
     const Navigate = useNavigate()

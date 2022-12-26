@@ -34,6 +34,7 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
         setToken(res.data.token)
         setNomeUsuario(res.data.name)
         setUser({id: res.data.id, name: res.data.name, cpf: res.data.cpf, email: res.data.email, password: res.data.password, membership: res.data.membership })
+        localStorage.setItem("user", JSON.stringify (user))
         if (res.data.membership === null){
             Navigate('/subscriptions') 
         } else if (res.data.membership !== null){

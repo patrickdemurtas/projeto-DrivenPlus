@@ -19,7 +19,7 @@ export default function TelaCadastro() {
 
         const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/sign-up', corpo)
            promise.then((res) => {
-            alert('Cadastro feito com sucesso!')
+            alert('Cadastro realizado com sucesso!')
             Navigate('/')
            })
            promise.catch((erro) => alert(erro.response.data.message))

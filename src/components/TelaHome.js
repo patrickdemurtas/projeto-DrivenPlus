@@ -1,10 +1,6 @@
 import styled from "styled-components";
-import logohomeplus from "../assets/logohomeplus.png";
-import logohomegold from "../assets/logohomegold.png";
-import logohomepremium from "../assets/logohomepremium.png";
 import iconeperson from "../assets/iconeperson.png"
 import { useContext } from "react";
-import PlanoContext from "../contexts/PlanoContext";
 import UserContext from "../contexts/UserContext";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
@@ -14,17 +10,14 @@ import React from "react";
 
 export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNomeUsuario }) {
 
-    const icones = [logohomeplus, logohomegold, logohomepremium, iconeperson];
+    const icones = [iconeperson];
 
-    const { infoPlano, setInfoPlano } = useContext(PlanoContext)
+    
     const { user, setUser } = useContext(UserContext)
     const { token, setToken } = useContext(AuthContext)
     const Navigate = useNavigate()
 
-    function teste() {
-
-        console.log(user)
-    }
+ 
 
     if (user.length === 0) {
         return (
@@ -32,7 +25,7 @@ export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNo
         )
     }
 
-
+     
 
     function cancelarPlano() {
         const config = {
@@ -58,7 +51,7 @@ export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNo
                     <img src={user.membership.image} />
 
                 </LogoHome>
-                <img src={icones[3]} />
+                <img src={icones[0]} />
 
             </HeaderHome>
 

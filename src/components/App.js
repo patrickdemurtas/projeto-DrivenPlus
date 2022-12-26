@@ -8,7 +8,7 @@ import TelaHome from "./TelaHome";
 import { useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import UserContext from "../contexts/UserContext";
-import PlanoContext from "../contexts/PlanoContext";
+
 
 
 
@@ -17,7 +17,6 @@ function App() {
 
   const [token, setToken] = useState("")
   const [user, setUser] = useState({})
-  const [infoPlano, setInfoPlano] = useState({})
   const [nomeCartao, setNomeCartao] = useState('')
   const [nomeUsuario, setNomeUsuario] = useState('')
 
@@ -26,7 +25,7 @@ function App() {
 
       <AuthContext.Provider value={{ token, setToken }} >
         <UserContext.Provider value={{ user, setUser }}>
-          <PlanoContext.Provider value={{ infoPlano, setInfoPlano }}>
+         
 
             <BrowserRouter>
 
@@ -40,7 +39,7 @@ function App() {
 
             </BrowserRouter>
 
-          </PlanoContext.Provider>
+          
         </UserContext.Provider>
       </AuthContext.Provider>
 

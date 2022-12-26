@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import logopluscadastro from "../assets/logopluscadastro.png";
-import logogoldcadastro from "../assets/logogoldcadastro.png";
-import logopremiumcadastro from "../assets/logopremiumcadastro.png";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
@@ -9,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function TelaPlanos() {
 
-    const logos = [logopluscadastro, logogoldcadastro, logopremiumcadastro];
+   
 
     const [planosPrev, setPlanosPrev] = useState([])
 
