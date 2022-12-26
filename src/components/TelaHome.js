@@ -9,6 +9,7 @@ import UserContext from "../contexts/UserContext";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 
 export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNomeUsuario }) {
@@ -31,9 +32,9 @@ export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNo
         )
     }
 
-  
-     
-     function cancelarPlano() {
+
+
+    function cancelarPlano() {
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -41,13 +42,13 @@ export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNo
         }
 
         const promise = axios.delete('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', config)
-         promise.then((res) => Navigate('/subscriptions'))
+        promise.then((res) => Navigate('/subscriptions'))
 
-     }
+    }
 
-     function alterarPlano() {
+    function alterarPlano() {
         Navigate('/subscriptions')
-     }
+    }
 
     return (
         <>
@@ -65,7 +66,13 @@ export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNo
 
             <ButtonBeneficiosContainer>
                 {user.membership.perks.map((ump) => (
-                    <ButtonBeneficios><p>{ump.title}</p></ButtonBeneficios>
+                    <a href={ump.link}>
+                        <ButtonBeneficios>
+
+                            <p>{ump.title}</p>
+
+                        </ButtonBeneficios>
+                    </a>
                 ))}
             </ButtonBeneficiosContainer>
 
