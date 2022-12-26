@@ -19,6 +19,7 @@ function App() {
   const [user, setUser] = useState({})
   const [infoPlano, setInfoPlano] = useState({})
   const [nomeCartao, setNomeCartao] = useState('')
+  const [nomeUsuario, setNomeUsuario] = useState('')
 
   return (
     <Container>
@@ -30,11 +31,11 @@ function App() {
             <BrowserRouter>
 
               <Routes>
-                <Route path="/" element={<TelaLogin />} />
+                <Route path="/" element={<TelaLogin nomeUsuario={nomeUsuario} setNomeUsuario={setNomeUsuario}/>} />
                 <Route path="/sign-up" element={<TelaCadastro />} />
                 <Route path="/subscriptions" element={<TelaPlanos />} />
-                <Route path="/subscriptions/:idPlano" element={<TelaAssinatura nomeCartao={nomeCartao} setNomeCartao={setNomeCartao} />} />
-                <Route path="/home" element={<TelaHome nomeCartao={nomeCartao} setNomeCartao={setNomeCartao}/>} />
+                <Route path="/subscriptions/:idPlano" element={<TelaAssinatura nomeCartao={nomeCartao} setNomeCartao={setNomeCartao} nomeUsuario={nomeUsuario} setNomeUsuario={setNomeUsuario} />} />
+                <Route path="/home" element={<TelaHome nomeCartao={nomeCartao} setNomeCartao={setNomeCartao} nomeUsuario={nomeUsuario} setNomeUsuario={setNomeUsuario}/>} />
               </Routes>
 
             </BrowserRouter>

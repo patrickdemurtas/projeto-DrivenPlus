@@ -14,7 +14,7 @@ import UserContext from "../contexts/UserContext"
 
 
 
-export default function TelaLogin() {
+export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
 
     const driven = [d, r, i, v, e, n]
     const Navigate = useNavigate()
@@ -32,6 +32,7 @@ export default function TelaLogin() {
      const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/login', corpo)
      promise.then((res) => {
         setToken(res.data.token)
+        setNomeUsuario(res.data.name)
         setUser({id: res.data.id, name: res.data.name, cpf: res.data.cpf, email: res.data.email, password: res.data.password, membership: res.data.membership })
         if (res.data.membership === null){
             Navigate('/subscriptions') 

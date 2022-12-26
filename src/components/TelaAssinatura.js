@@ -12,19 +12,19 @@ import axios from "axios";
 import PlanoContext from "../contexts/PlanoContext";
 import UserContext from "../contexts/UserContext";
 
-export default function TelaAssinatura({nomeCartao, setNomeCartao}) {
+export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
 
     const logos = [logopluscadastro, logogoldcadastro, logopremiumcadastro];
     const icones = [beneficios, preco, iconevoltar];
 
     const [planoDesc, setPlanoDesc] = useState([])
-    
+
     const [numeroCartao, setNumeroCartao] = useState('')
     const [codCartao, setCodCartao] = useState()
     const [valCartao, setValCartao] = useState('')
 
-    const {infoPlano, setInfoPlano} = useContext(PlanoContext) 
-    const {user, setUser} = useContext(UserContext)
+    const { infoPlano, setInfoPlano } = useContext(PlanoContext)
+    const { user, setUser } = useContext(UserContext)
 
     const Navigate = useNavigate()
     const { idPlano } = useParams();
@@ -53,24 +53,25 @@ export default function TelaAssinatura({nomeCartao, setNomeCartao}) {
 
     function assinarPlano(e) {
         e.preventDefault()
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
+        let resultado = window.confirm(`Tem certeza que deseja assinar o plano ${planoDesc.name} (${planoDesc.price})?`)
+        if (resultado === true) {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
+
+            const corpo = { membershipId: idPlano, cardName: nomeCartao, cardNumber: numeroCartao, securityNumber: codCartao, expirationDate: valCartao }
+
+            const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', corpo, config)
+            promise.then((res) => {
+                setUser(res.data)
+                alert('Assinatura feita com sucesso')
+                Navigate('/home')
+            })
+            promise.catch((erro) => alert(erro.response.data.message))
         }
-
-        const corpo = { membershipId: idPlano, cardName: nomeCartao, cardNumber: numeroCartao, securityNumber: codCartao, expirationDate: valCartao }
-
-        const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', corpo, config)
-        promise.then((res) => {
-            setUser(res.data)
-            alert('Assinatura feita com sucesso')
-            Navigate('/home')
-        })
-        promise.catch((erro) => alert(erro.response.data.message))
     }
-     
     return (
         <>
             <Link to="/subscriptions">
@@ -174,7 +175,6 @@ p{
     font-size: 14px;
     line-height: 17px;
     color: #FFFFFF;
-
 }
 `
 
@@ -202,7 +202,6 @@ p{
     font-size: 14px;
     line-height: 17px;
     color: #FFFFFF;
-
 }
 `
 

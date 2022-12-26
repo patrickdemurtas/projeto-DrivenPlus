@@ -11,7 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
-export default function TelaHome({ nomeCartao, setNomeCartao }) {
+export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNomeUsuario }) {
 
     const icones = [logohomeplus, logohomegold, logohomepremium, iconeperson];
 
@@ -31,17 +31,7 @@ export default function TelaHome({ nomeCartao, setNomeCartao }) {
         )
     }
 
-    function carregarNome() {
-        if (nomeCartao === '') {
-            return (
-                <TituloHome><p>Olá, {user.name}</p></TituloHome>
-            )
-        } else if (nomeCartao !== '') {
-            return (
-                <TituloHome><p>Olá, {nomeCartao}</p></TituloHome>
-            )
-        }
-    }
+  
      
      function cancelarPlano() {
         const config = {
@@ -51,7 +41,7 @@ export default function TelaHome({ nomeCartao, setNomeCartao }) {
         }
 
         const promise = axios.delete('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', config)
-         promise.then((res) => Navigate('/'))
+         promise.then((res) => Navigate('/subscriptions'))
 
      }
 
@@ -71,7 +61,7 @@ export default function TelaHome({ nomeCartao, setNomeCartao }) {
 
             </HeaderHome>
 
-            {carregarNome()}
+            <TituloHome><p>Olá, {nomeUsuario}</p></TituloHome>
 
             <ButtonBeneficiosContainer>
                 {user.membership.perks.map((ump) => (
