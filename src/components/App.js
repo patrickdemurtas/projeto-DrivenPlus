@@ -15,15 +15,33 @@ import UserContext from "../contexts/UserContext";
 
 function App() {
 
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState('')
   const [user, setUser] = useState({})
   const [nomeCartao, setNomeCartao] = useState('')
   const [nomeUsuario, setNomeUsuario] = useState('')
 
+  const Auth = localStorage.getItem("token")
+
+  function storageToken(token){
+    if(token !== null){
+      setToken(token)
+      localStorage.setItem("token",token)
+
+    }
+  }
+
+  function storageUser(user){
+    if (user !== null){
+      setUser(user)
+      localStorage.setItem("user", JSON.stringify(user))
+    }
+  }
+
+ 
   return (
     <Container>
 
-      <AuthContext.Provider value={{ token, setToken }} >
+      <AuthContext.Provider value={{ token, setToken, storageToken, storageUser, Auth }} >
         <UserContext.Provider value={{ user, setUser }}>
          
 

@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 
-export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNomeUsuario }) {
+export default function TelaHome({  nomeUsuario, setNomeUsuario }) {
 
     const icones = [iconeperson];
+
+    const Auth = localStorage.getItem("token")
 
     
     const { user, setUser } = useContext(UserContext)
@@ -30,7 +32,7 @@ export default function TelaHome({ nomeCartao, setNomeCartao, nomeUsuario, setNo
     function cancelarPlano() {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${Auth}`
             }
         }
 

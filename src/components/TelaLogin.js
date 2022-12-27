@@ -5,8 +5,8 @@ import v from "../assets/v.png"
 import e from "../assets/e.png"
 import n from "../assets/n.png"
 import styled from "styled-components"
-import { Link, useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
+import { json, Link, useNavigate } from "react-router-dom"
+import { useContext, useState, useEffect } from "react"
 import axios from "axios"
 import AuthContext from "../contexts/AuthContext"
 import UserContext from "../contexts/UserContext"
@@ -21,8 +21,8 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
     
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { token, setToken } = useContext(AuthContext)
-    const { user, setUser } = useContext(UserContext) 
+    const { token, setToken, storageToken, storageUser } = useContext(AuthContext)
+    const { user, setUser, userLocal } = useContext(UserContext) 
 
     function fazerLogin (e) {
      e.preventDefault()
@@ -31,10 +31,11 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
 
      const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/login', corpo)
      promise.then((res) => {
-        setToken(res.data.token)
+        storageToken(res.data.token)
+        storageUser(res.data)
         setNomeUsuario(res.data.name)
         setUser({id: res.data.id, name: res.data.name, cpf: res.data.cpf, email: res.data.email, password: res.data.password, membership: res.data.membership })
-        localStorage.setItem("user", JSON.stringify (user))
+        
         if (res.data.membership === null){
             Navigate('/subscriptions') 
         } else if (res.data.membership !== null){
@@ -47,7 +48,12 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
             Navigate('/sign-up')
         })
     }
-
+   
+  useEffect(() => {
+    localStorage.setItem("token", JSON.stringify(token))
+  },["token", token])
+    
+    
 
     return (
 

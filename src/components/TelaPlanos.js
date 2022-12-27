@@ -10,13 +10,16 @@ export default function TelaPlanos() {
 
     const [planosPrev, setPlanosPrev] = useState([])
 
-    const { token } = useContext(AuthContext)
-
+    const { token, setToken, storageToken, Auth } = useContext(AuthContext)
+   
+    
+    
 
     useEffect(() => {
+
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${Auth}`
             }
         }
         const promise = axios.get('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships', config)

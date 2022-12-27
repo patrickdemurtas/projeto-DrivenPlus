@@ -24,14 +24,16 @@ export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
 
     const Navigate = useNavigate()
     const { idPlano } = useParams();
-    const { token } = useContext(AuthContext)
+    const { token, setToken, storageToken, Auth } = useContext(AuthContext)
+
+    
 
     console.log(idPlano)
 
     useEffect(() => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${Auth}`
             }
         }
         const promise = axios.get(`https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${idPlano}`, config)
@@ -49,11 +51,12 @@ export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
 
     function assinarPlano(e) {
         e.preventDefault()
+        console.log(planoDesc)
         let resultado = window.confirm(`Tem certeza que deseja assinar o plano ${planoDesc.name} (${planoDesc.price})?`)
         if (resultado === true) {
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${Auth}`
                 }
             }
 
