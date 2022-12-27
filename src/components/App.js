@@ -37,22 +37,29 @@ function App() {
     }
   }
 
+  function storageNomeUsuario(nomeUsuario){
+    if (nomeUsuario !== null){
+      setNomeUsuario(nomeUsuario)
+      localStorage.setItem("nomeUsuario", nomeUsuario)
+    }
+  }
+
  
   return (
     <Container>
 
       <AuthContext.Provider value={{ token, setToken, storageToken, storageUser, Auth }} >
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, nomeUsuario, setNomeUsuario, nomeCartao, setNomeCartao, storageNomeUsuario }}>
          
 
             <BrowserRouter>
 
               <Routes>
-                <Route path="/" element={<TelaLogin nomeUsuario={nomeUsuario} setNomeUsuario={setNomeUsuario}/>} />
+                <Route path="/" element={<TelaLogin />} />
                 <Route path="/sign-up" element={<TelaCadastro />} />
                 <Route path="/subscriptions" element={<TelaPlanos />} />
-                <Route path="/subscriptions/:idPlano" element={<TelaAssinatura nomeCartao={nomeCartao} setNomeCartao={setNomeCartao} nomeUsuario={nomeUsuario} setNomeUsuario={setNomeUsuario} />} />
-                <Route path="/home" element={<TelaHome nomeCartao={nomeCartao} setNomeCartao={setNomeCartao} nomeUsuario={nomeUsuario} setNomeUsuario={setNomeUsuario}/>} />
+                <Route path="/subscriptions/:idPlano" element={<TelaAssinatura  />} />
+                <Route path="/home" element={<TelaHome />} />
               </Routes>
 
             </BrowserRouter>

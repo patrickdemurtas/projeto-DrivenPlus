@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 
-export default function TelaHome({  nomeUsuario, setNomeUsuario }) {
+export default function TelaHome() {
 
     const icones = [iconeperson];
 
     const Auth = localStorage.getItem("token")
 
     
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser, nomeUsuario, setNomeUsuario, nomeCartao, setNomeCartao } = useContext(UserContext)
     const { token, setToken } = useContext(AuthContext)
     const Navigate = useNavigate()
 
@@ -45,26 +45,29 @@ export default function TelaHome({  nomeUsuario, setNomeUsuario }) {
         Navigate('/subscriptions')
     }
 
+    const nome = localStorage.getItem("nomeUsuario")
+    const dadosHome = JSON.parse(localStorage.getItem("user"))
+
     return (
         <>
             <HeaderHome>
 
                 <LogoHome>
-                    <img src={user.membership.image} />
+                    <img src={dadosHome.membership.image} />
 
                 </LogoHome>
                 <img src={icones[0]} />
 
             </HeaderHome>
 
-            <TituloHome><p>Olá, {nomeUsuario}</p></TituloHome>
+            <TituloHome><p>Olá, {nome}</p></TituloHome>
 
             <ButtonBeneficiosContainer>
-                {user.membership.perks.map((ump) => (
-                    <a href={ump.link}>
+                {dadosHome.membership.perks.map((dmp) => (
+                    <a href={dmp.link}>
                         <ButtonBeneficios>
 
-                            <p>{ump.title}</p>
+                            <p>{dmp.title}</p>
 
                         </ButtonBeneficios>
                     </a>

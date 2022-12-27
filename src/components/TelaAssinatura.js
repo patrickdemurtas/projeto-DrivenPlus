@@ -8,7 +8,7 @@ import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
 
-export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
+export default function TelaAssinatura() {
 
     
     const icones = [beneficios, preco, iconevoltar];
@@ -24,7 +24,8 @@ export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
 
     const Navigate = useNavigate()
     const { idPlano } = useParams();
-    const { token, setToken, storageToken, Auth } = useContext(AuthContext)
+    const { token, setToken, storageToken, storageUser, Auth } = useContext(AuthContext)
+    const { nomeUsuario, setNomeUsuario, nomeCartao, setNomeCartao, st } = useContext(UserContext)
 
     
 
@@ -64,9 +65,11 @@ export default function TelaAssinatura({ nomeCartao, setNomeCartao }) {
 
             const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', corpo, config)
             promise.then((res) => {
-                setUser(res.data)
+                
                 alert('Assinatura feita com sucesso')
                 Navigate('/home')
+                storageUser(res.data)
+                
             })
             promise.catch((erro) => alert(erro.response.data.message))
         }

@@ -14,7 +14,7 @@ import UserContext from "../contexts/UserContext"
 
 
 
-export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
+export default function TelaLogin() {
 
     const driven = [d, r, i, v, e, n]
     const Navigate = useNavigate()
@@ -22,7 +22,7 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { token, setToken, storageToken, storageUser } = useContext(AuthContext)
-    const { user, setUser, userLocal } = useContext(UserContext) 
+    const { user, setUser, userLocal, nomeUsuario, setNomeUsuario, storageNomeUsuario } = useContext(UserContext) 
 
     function fazerLogin (e) {
      e.preventDefault()
@@ -32,7 +32,7 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
      const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/login', corpo)
      promise.then((res) => {
         storageToken(res.data.token)
-        storageUser(res.data)
+        storageNomeUsuario(res.data.name)
         setNomeUsuario(res.data.name)
         setUser({id: res.data.id, name: res.data.name, cpf: res.data.cpf, email: res.data.email, password: res.data.password, membership: res.data.membership })
         
@@ -49,10 +49,7 @@ export default function TelaLogin({nomeUsuario, setNomeUsuario}) {
         })
     }
    
-  useEffect(() => {
-    localStorage.setItem("token", JSON.stringify(token))
-  },["token", token])
-    
+
     
 
     return (
